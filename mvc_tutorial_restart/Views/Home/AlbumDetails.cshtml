@@ -1,0 +1,24 @@
+﻿@model IEnumerable<mvc_tutorial_restart.Models.Album>
+
+@{
+    ViewBag.Title = "AlbumDetails";
+}
+
+<h2>AlbumDetails</h2>
+<p>
+    @foreach(mvc_tutorial_restart.Models.Album selected in Model)
+    {
+        <div>
+            @selected.Title
+            <br />
+            @selected.Price
+            <br />
+            @selected.Genre.Name
+            <br />
+            
+        </div>
+        
+        
+    }
+</p>
+

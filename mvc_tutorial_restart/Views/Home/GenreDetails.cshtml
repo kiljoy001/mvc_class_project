@@ -1,0 +1,15 @@
+﻿@model HashSet<mvc_tutorial_restart.Models.Album>
+@{
+    ViewBag.Title = "GenreDetails";
+}
+
+<h2>Details</h2>
+<p>
+    Select from @Model.Count() Album(s):
+    <ul>
+        @foreach (mvc_tutorial_restart.Models.Album album in Model)
+        {
+            <li>@Html.ActionLink(album.Title, "AlbumDetails", new {album = album.Title })</li>
+        }
+    </ul>
+</p>
