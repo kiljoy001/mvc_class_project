@@ -21,16 +21,19 @@ namespace mvc_tutorial_restart.Controllers
         public ActionResult Index(AdminLogin creds)
         {
             var emailLogin = adminLogin.Admins.ToList();
-            var emailmatch = emailLogin.Where(un => un.Admin_Login == creds.UserName);
-            if (ModelState.IsValid)
+            var emailmatch = emailLogin.Where(un => un.Admin_Login.Trim() == creds.UserName);
+            if (!ModelState.IsValid)
             {
-                if (BCrypt.Net.BCrypt.Verify(creds.Secret, emailmatch.Single().Secret))
-                {
-                    return View("Configure");
-                }
-                
+#if DEBUG
+                var errors = ModelState.Where(ms => ms.Value.Errors.Count > 0).ToArray();
+#endif
+                return View(creds);
             }
-            return RedirectToAction("Index");
+            if (BCrypt.Net.BCrypt.Verify(creds.Secret, emailmatch.Single().Secret))
+            {
+                return View("Configure");
+            }
+            return View();
         }
         public ActionResult Edit()
         {

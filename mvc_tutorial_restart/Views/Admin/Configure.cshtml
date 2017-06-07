@@ -1,7 +1,7 @@
 ﻿@model mvc_tutorial_restart.Models.AdminLogin
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_AdminNav.cshtml";
 }
 
 <!DOCTYPE html>
@@ -9,10 +9,18 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Configure</title>
+    <title>Configuration</title>
 </head>
 <body>
-    <div> 
-    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken();
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <fieldset>
+            <legend>Discogs</legend>
+            Enable Discogs ?:  
+        </fieldset>
+    }
 </body>
 </html>
