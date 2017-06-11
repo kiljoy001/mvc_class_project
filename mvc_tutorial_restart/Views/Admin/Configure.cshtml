@@ -1,4 +1,5 @@
-﻿@model mvc_tutorial_restart.Models.AdminLogin
+﻿@using mvc_tutorial_restart.Models;
+@model Tuple<AdminLogin,List<Admin>>
 
 @{
     Layout = "~/Views/Shared/_AdminNav.cshtml";
@@ -19,7 +20,13 @@
 
         <fieldset>
             <legend>Discogs</legend>
-            Enable Discogs Album Art:&nbsp; &nbsp;<input type="checkbox" />&nbsp; &nbsp;&nbsp; &nbsp; 
+            @*The follow works as thus: using the passed tuple from the controller, it matches username property from AdminLogin to the Admin classes' Admin_Login property, then uses the single or default method to extract the bool value from the album class. Once the value is extracted, it is then evaluated for it's value. Note it is still bugged as it actually evaluating if the item exists thus it always returns 'true' *@
+            @(
+            ViewBag.Result = 
+            ViewBag.Result == Model.Item2.Where(un => un.Admin_Login.Trim() == Model.Item1.UserName)
+            .SingleOrDefault(a => a.Discogs)
+            ? "Disable" : "Enable")
+           Discogs Album Art:&nbsp; &nbsp;<input type="checkbox" />&nbsp; &nbsp;&nbsp; &nbsp; 
             <input type="submit" value="Update" class="btn btn-default"/>
         </fieldset>
     }

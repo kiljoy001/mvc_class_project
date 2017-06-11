@@ -16,5 +16,6 @@ namespace mvc_tutorial_restart.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Secret { get; set; }
+
     }
 }
