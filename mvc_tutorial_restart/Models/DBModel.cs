@@ -34,6 +34,10 @@ namespace mvc_tutorial_restart.Models
                 .Property(e => e.Secret)
                 .IsFixedLength();
 
+            modelBuilder.Entity<Admin>()
+               .Property(e => e.Discogs)
+               .IsRequired();
+
             modelBuilder.Entity<Album>()
                 .Property(e => e.Price)
                 .HasPrecision(10, 2);

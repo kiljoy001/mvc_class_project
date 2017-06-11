@@ -20,6 +20,8 @@ namespace mvc_tutorial_restart.Controllers
         [HttpPost]
         public ActionResult Index(AdminLogin creds)
         {
+            ViewBag.Enable = "Enable";
+            ViewBag.Disable = "Disable";
             var emailLogin = adminLogin.Admins.ToList();
             var emailmatch = emailLogin.Where(un => un.Admin_Login.Trim() == creds.UserName);
             if (!ModelState.IsValid)
@@ -37,6 +39,8 @@ namespace mvc_tutorial_restart.Controllers
         }
         public ActionResult Edit()
         {
+            ViewBag.Enable = "Enable";
+            ViewBag.Disable = "Disable";
             return View("Configure");
         }
         public ActionResult Albums()
