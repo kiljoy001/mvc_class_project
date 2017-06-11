@@ -16,5 +16,7 @@ namespace mvc_tutorial_restart.Models
 
         [StringLength(60)]
         public string Secret { get; set; }
+
+        public bool Discogs { get; set; }
     }
 }
