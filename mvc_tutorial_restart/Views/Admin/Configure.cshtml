@@ -13,7 +13,7 @@
     <title>Configuration</title>
 </head>
 <body>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Update_Discogs", "Admin"))
     {
         @Html.AntiForgeryToken();
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })

@@ -45,14 +45,14 @@ namespace mvc_tutorial_restart.Controllers
             return View("Albums");
         }
         [HttpPost]
-        public void Update_Discogs(Admin update)
+        public void Update_Discogs()
         {
-            if(TryUpdateModel(update))
-            {
-                bool state = update.Discogs;
-                update.Discogs = state ? false : true;
+                string username = adminLogin.Admins.SingleOrDefault(a => a.Admin_Login == update.UserName).ToString();
+                bool state = adminLogin.Admins.SingleOrDefault(a => a.Admin_Login == username).Discogs;
+                adminLogin.Admins.SingleOrDefault(a => a.Admin_Login == username).Discogs = state ? false : true;
                 adminLogin.SaveChanges();
-            }
+            
+            //return View("Configure");
         }
     }
 }
