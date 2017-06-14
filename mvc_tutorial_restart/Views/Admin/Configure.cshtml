@@ -20,7 +20,7 @@
 
         <fieldset>
             <legend>Discogs</legend>
-            @*The follow works as thus: using the passed tuple from the controller, it matches username property from AdminLogin to the Admin classes' Admin_Login property, then uses the single or default method to extract the bool value from the album class. Once the value is extracted, it is then evaluated for it's value. Note it is still bugged as it actually evaluating if the item exists thus it always returns 'true' *@
+            @*Checks List<Admin> Model. Note that this could have a side effect where the list is longer than 1 item.  *@
 
             @{ 
                 foreach (Admin item in Model.Item2)

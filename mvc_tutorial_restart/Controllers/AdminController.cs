@@ -44,5 +44,15 @@ namespace mvc_tutorial_restart.Controllers
         {
             return View("Albums");
         }
+        [HttpPost]
+        public void Update_Discogs(Admin update)
+        {
+            if(TryUpdateModel(update))
+            {
+                bool state = update.Discogs;
+                update.Discogs = state ? false : true;
+                adminLogin.SaveChanges();
+            }
+        }
     }
 }
