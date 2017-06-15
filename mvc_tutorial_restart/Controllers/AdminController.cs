@@ -20,8 +20,13 @@ namespace mvc_tutorial_restart.Controllers
         [HttpPost]
         public ActionResult Index(AdminLogin creds)
         {
+            Admin adminModel = new Admin();
             var emailLogin = adminLogin.Admins.ToList();
             var emailmatch = emailLogin.Where(un => un.Admin_Login.Trim() == creds.UserName);
+            foreach (Admin item in emailmatch)
+            {
+                adminModel = item;
+            }
             if (!ModelState.IsValid)
             {
 #if DEBUG
@@ -31,7 +36,7 @@ namespace mvc_tutorial_restart.Controllers
             }
             if (BCrypt.Net.BCrypt.Verify(creds.Secret, emailmatch.Single().Secret))
             {
-                var tuple = new Tuple<AdminLogin, List<Admin>>(creds,emailLogin);
+                var tuple = new Tuple<AdminLogin, Admin>(creds,adminModel);
                 return View("Configure", tuple);
             }
             return View();
@@ -45,13 +50,12 @@ namespace mvc_tutorial_restart.Controllers
             return View("Albums");
         }
         [HttpPost]
-        public void Update_Discogs()
+        public void Update_Discogs(Tuple<AdminLogin, Admin> updated )
         {
-                string username = adminLogin.Admins.SingleOrDefault(a => a.Admin_Login == update.UserName).ToString();
-                bool state = adminLogin.Admins.SingleOrDefault(a => a.Admin_Login == username).Discogs;
-                adminLogin.Admins.SingleOrDefault(a => a.Admin_Login == username).Discogs = state ? false : true;
-                adminLogin.SaveChanges();
-            
+            adminLogin.Admins.Attach(updated.Item2);
+            var entry = adminLogin.Entry(updated.Item2);
+            entry.Property(a => a.Discogs).IsModified = true;
+            adminLogin.SaveChanges();
             //return View("Configure");
         }
     }

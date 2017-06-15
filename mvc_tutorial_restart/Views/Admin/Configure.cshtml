@@ -1,5 +1,5 @@
 ﻿@using mvc_tutorial_restart.Models;
-@model Tuple<AdminLogin,List<Admin>>
+@model Tuple<AdminLogin,Admin>
 
 @{
     Layout = "~/Views/Shared/_AdminNav.cshtml";
@@ -22,14 +22,10 @@
             <legend>Discogs</legend>
             @*Checks List<Admin> Model. Note that this could have a side effect where the list is longer than 1 item.  *@
 
-            @{ 
-                foreach (Admin item in Model.Item2)
-                {
-                    ViewBag.Display = item.Discogs ? "Disable" : "Enable";
-                }
-            }
+           @{ViewBag.Display = Model.Item2.Discogs ? "Disable" : "Enable"; }
 
-          @ViewBag.Display Discogs Album Art:&nbsp; &nbsp;<input type="checkbox" />&nbsp; &nbsp;&nbsp; &nbsp; 
+
+          @ViewBag.Display Discogs Album Art:&nbsp; &nbsp;@Html.CheckBoxFor(m => m.Item2.Discogs)&nbsp; &nbsp;&nbsp; &nbsp; 
             <input type="submit" value="Update" class="btn btn-default"/>
         </fieldset>
     }
