@@ -36,8 +36,12 @@ namespace mvc_tutorial_restart.Controllers
             }
             if (BCrypt.Net.BCrypt.Verify(creds.Secret, emailmatch.Single().Secret))
             {
-                var tuple = new Tuple<AdminLogin, Admin>(creds,adminModel);
-                return View("Configure", tuple);
+                var CLViewModel = new ConfigureLoginViewModel()
+                {
+                    Login = creds,
+                    LoginDbModel = adminModel
+                };
+                return View("Configure", CLViewModel);
             }
             return View();
         }
@@ -50,10 +54,10 @@ namespace mvc_tutorial_restart.Controllers
             return View("Albums");
         }
         [HttpPost]
-        public void Update_Discogs(Tuple<AdminLogin, Admin> updated )
+        public void Update_Discogs(ConfigureLoginViewModel updated )
         {
-            adminLogin.Admins.Attach(updated.Item2);
-            var entry = adminLogin.Entry(updated.Item2);
+            adminLogin.Admins.Attach(updated.LoginDbModel);
+            var entry = adminLogin.Entry(updated.LoginDbModel);
             entry.Property(a => a.Discogs).IsModified = true;
             adminLogin.SaveChanges();
             //return View("Configure");

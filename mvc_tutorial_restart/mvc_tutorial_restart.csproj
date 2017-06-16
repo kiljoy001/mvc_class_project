@@ -191,6 +191,7 @@
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\Artist1.cs" />
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\ConfigureLoginViewModel.cs" />
     <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\DBModel.cs" />
     <Compile Include="Models\Genre.cs" />
