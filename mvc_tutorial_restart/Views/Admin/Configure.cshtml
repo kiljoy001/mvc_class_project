@@ -13,7 +13,8 @@
     <title>Configuration</title>
 </head>
 <body>
-    @using (Html.BeginForm("Update_Discogs", "Admin"))
+    @using (Html.BeginForm("Update_Discogs", "Admin", FormMethod.Post)
+)
     {
         @Html.AntiForgeryToken();
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
@@ -25,7 +26,11 @@
            @{ViewBag.Display = Model.LoginDbModel.Discogs ? "Disable" : "Enable"; }
 
 
-          @ViewBag.Display Discogs Album Art:&nbsp; &nbsp;@Html.CheckBoxFor(m => m.LoginDbModel.Discogs)&nbsp; &nbsp;&nbsp; &nbsp; 
+          @ViewBag.Display Discogs Album Art:&nbsp; &nbsp;@Html.CheckBoxFor(m => m.LoginDbModel.Discogs)&nbsp; &nbsp;&nbsp; &nbsp;
+            
+            @Html.HiddenFor(x => Model.LoginDbModel.AdminID)
+            @Html.HiddenFor(x => Model.LoginDbModel.Admin_Login)
+            @Html.HiddenFor(x => Model.LoginDbModel.Secret)
             <input type="submit" value="Update" class="btn btn-default"/>
         </fieldset>
     }
